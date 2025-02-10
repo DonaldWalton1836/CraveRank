@@ -8,38 +8,114 @@
 <body>
 
     <!-- Header Box with Logo and Website Name -->
-    <header style="background-color: #f8f9fa; padding: 20px 0; text-align: center; border-bottom: 2px solid #ddd;">
+    <!-- <header style="background-color: #f5f7f9; padding: 20px 0; text-align: center; border-bottom: 2px solid #ddd;">
         <img src="logo.png" alt="Crave Rank Logo" style="max-width: 100px; height: auto; margin-bottom: 10px;">
         <h1 style="font-size: 2.5rem; color: #333;">Crave Rank</h1>
-    </header>
-
-    <!-- Search Bar Section -->
-    <div style="text-align: center; margin-top: 20px;">
+         -->
+         <!-- Search Bar Section -->
+        <!-- <div style="text-align: center; margin-top: 20px;">
         <input type="text" id="location" placeholder="Search for restaurants..." style="padding: 10px; width: 300px;">
-        <button id="search-btn" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer;">Search</button>
-    </div>
-
-    <!-- Login and Sign Up Buttons -->
-    <div style="text-align: center; margin-top: 30px;">
+        <button id="search-btn" style="padding: 10px 20px; background-color: #90a728; color: white; border: none; cursor: pointer;">Search</button>
+    </div> -->
+     <!-- Login and Sign Up Buttons -->
+     <!-- <div style="text-align: center; margin-top: 30px;">
         <button id="login-btn" onclick="toggleForm('login')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Login</button>
         <button id="signup-btn" onclick="toggleForm('signup')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Sign Up</button>
-    </div>
+    </div> -->
 
     <!-- Login Form (Initially Hidden) -->
-    <div id="login-form" style="display: none; text-align: center; margin-top: 20px;">
+    <!-- <div id="login-form" style="display: none; text-align: center; margin-top: 20px;">
         <h3>Login</h3>
         <input type="text" id="login-username" placeholder="Username" style="padding: 10px; width: 250px; margin-bottom: 10px;">
         <input type="password" id="login-password" placeholder="Password" style="padding: 10px; width: 250px; margin-bottom: 10px;">
         <button onclick="login()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Login</button>
-    </div>
+    </div> -->
 
     <!-- Sign-Up Form (Initially Hidden) -->
-    <div id="signup-form" style="display: none; text-align: center; margin-top: 20px;">
+    <!-- <div id="signup-form" style="display: none; text-align: center; margin-top: 20px;">
         <h3>Sign Up</h3>
         <input type="text" id="signup-username" placeholder="Username" style="padding: 10px; width: 250px; margin-bottom: 10px;">
         <input type="password" id="signup-password" placeholder="Password" style="padding: 10px; width: 250px; margin-bottom: 10px;">
         <button onclick="signup()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Sign Up</button>
     </div>
+    </header> -->
+    <header style="background-color: #f5f7f9; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd;">
+    
+        <!-- Logo & Title -->
+        <div style="display: flex; align-items: center;">
+            <img src="logo.png" alt="Crave Rank Logo" style="max-width: 100px; height: auto; margin-right: 15px;">
+            <h1 style="font-size: 2rem; color: #333; margin: 0;">Crave Rank</h1>
+        </div>
+    
+        <!-- Search Bar Section -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <input type="text" id="location" placeholder="Search for food" style="padding: 10px; width: 300px;">
+            <button id="search-btn" style="padding: 10px 20px; background-color: #90a728; color: white; border: none; cursor: pointer;">Search</button>
+        </div>
+
+        <!-- Location Search Bar Section -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <input type="text" id="location" placeholder="Location" style="padding: 10px; width: 300px;">
+            <button id="search-btn" style="padding: 10px 20px; background-color: #90a728; color: white; border: none; cursor: pointer;">Search</button>
+        </div>
+    
+        <!-- Login & Sign Up Buttons -->
+        <div style="display: flex; gap: 10px;">
+            <button id="login-btn" onclick="toggleForm('login')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Login</button>
+            <button id="signup-btn" onclick="toggleForm('signup')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Sign Up</button>
+        </div>
+    
+    </header>
+    
+
+    <!-- Search Bar Section -->
+    <!-- <div style="text-align: center; margin-top: 20px;">
+        <input type="text" id="location" placeholder="Search for restaurants..." style="padding: 10px; width: 300px;">
+        <button id="search-btn" style="padding: 10px 20px; background-color: #90a728; color: white; border: none; cursor: pointer;">Search</button>
+    </div> -->
+
+    <!-- import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+
+const MyComponent = () => {
+  return (
+    <div>
+      {/* Custom Search Bar Section */}
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        {/* Input Field */}
+        <input
+          type="text"
+          id="location"
+          placeholder="Search for restaurants..."
+          style={{
+            padding: '10px',
+            width: '300px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+          }}
+        />
+        
+        {/* Icon Button for Search */}
+        <IconButton
+          id="search-btn"
+          style={{
+            backgroundColor: '#28a745',
+            color: 'white',
+            borderRadius: '50%',
+            padding: '10px',
+            marginLeft: '10px',
+            cursor: 'pointer',
+          }}
+        >
+          <SearchIcon />
+        </IconButton>
+      </div>
+    </div>
+  );
+};
+
+export default MyComponent; -->
 
     <div id="results" style="padding: 20px;"></div>
 
