@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave Rank</title>
+</head>
+<body>
+
+    <!-- Header Box with Logo and Website Name -->
+    <header style="background-color: #f8f9fa; padding: 20px 0; text-align: center; border-bottom: 2px solid #ddd;">
+        <img src="logo.png" alt="Crave Rank Logo" style="max-width: 100px; height: auto; margin-bottom: 10px;">
+        <h1 style="font-size: 2.5rem; color: #333;">Crave Rank</h1>
+    </header>
+
+    <!-- Search Bar Section -->
+    <div style="text-align: center; margin-top: 20px;">
+        <input type="text" id="location" placeholder="Search for restaurants..." style="padding: 10px; width: 300px;">
+        <button id="search-btn" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer;">Search</button>
+    </div>
+
+    <!-- Login and Sign Up Buttons -->
+    <div style="text-align: center; margin-top: 30px;">
+        <button id="login-btn" onclick="toggleForm('login')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Login</button>
+        <button id="signup-btn" onclick="toggleForm('signup')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Sign Up</button>
+    </div>
+
+    <!-- Login Form (Initially Hidden) -->
+    <div id="login-form" style="display: none; text-align: center; margin-top: 20px;">
+        <h3>Login</h3>
+        <input type="text" id="login-username" placeholder="Username" style="padding: 10px; width: 250px; margin-bottom: 10px;">
+        <input type="password" id="login-password" placeholder="Password" style="padding: 10px; width: 250px; margin-bottom: 10px;">
+        <button onclick="login()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Login</button>
+    </div>
+
+    <!-- Sign-Up Form (Initially Hidden) -->
+    <div id="signup-form" style="display: none; text-align: center; margin-top: 20px;">
+        <h3>Sign Up</h3>
+        <input type="text" id="signup-username" placeholder="Username" style="padding: 10px; width: 250px; margin-bottom: 10px;">
+        <input type="password" id="signup-password" placeholder="Password" style="padding: 10px; width: 250px; margin-bottom: 10px;">
+        <button onclick="signup()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Sign Up</button>
+    </div>
+
+    <div id="results" style="padding: 20px;"></div>
+
+    <script>
+        // Toggle between login and signup form
+        function toggleForm(form) {
+            if (form === 'signup') {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('signup-form').style.display = 'block';
+            } else {
+                document.getElementById('signup-form').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+            }
+        }
+
+        // Search Button
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const location = document.getElementById('location').value;
+            if (!location) {
+                alert("Please enter a location");
+                return;
+            }
+
+            // Replace this URL with your Flask API URL
+            const url = new URL('http://localhost:5000/search_restaurants');
+            const params = new URLSearchParams({
+                location: location,
+            });
+
+            fetch(url + '?' + params.toString())
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    document.getElementById('results').textContent = 'Error: ' + error.message;
+                });
+        });
+
+        // Display search results
+        function displayResults(data) {
+            let resultsHTML = '';
+            if (data.error) {
+                resultsHTML = 'No results found.';
+            } else {
+                data.forEach(restaurant => {
+                    resultsHTML += `
+                        <div>
+                            <h3>${restaurant.name}</h3>
+                            <p>Rating: ${restaurant.rating}</p>
+                            <p>Price: ${restaurant.price || 'N/A'}</p>
+                            <p>Address: ${restaurant.address}</p>
+                            <p>Phone: ${restaurant.phone}</p>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('results').innerHTML = resultsHTML;
+        }
+
+        // Dummy login function
+        function login() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            console.log("Logging in:", username, password);
+            // Add login API call logic here
+        }
+
+        // Dummy signup function
+        function signup() {
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            console.log("Signing up:", username, password);
+            // Add signup API call logic here
+        }
+    </script>
+
+</body>
+</html>
