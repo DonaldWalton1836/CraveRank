@@ -75,6 +75,11 @@ a {
   cursor: pointer;
 }
 
+.button:hover {
+  background-color: #782F40;
+  color:#CEB888
+}
+
 /* Centered login form with rounded corners */
 .form_container {
   position: absolute;
