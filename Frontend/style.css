@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header {
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  z-index: 100;
+  padding: 20px;
+}
+
+.form_header h1 {
+  font-weight: normal;
+  color: #782F40;
+}
+
+
+.nav {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Flex settings for the nav and nav items */
+.nav,
+.nav_items {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav_logo {
+  font-size: 25px;
+}
+
+.nav_logo_container {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust spacing between text and icon */
+  color: #CEB888;
+}
+
+.nav_logo,
+.nav_link {
+  color: #782F40;
+}
+
+.nav_item {
+  margin-right: 25px;
+}
+
+.nav_link:hover {
+  color: #d9d9d9;
+}
+
+.button {
+  padding: 6px 24px;
+  border: 2px solid #CEB888;
+  background: transparent;
+  color: #782F40;
+  /* background-color: #CEB888; */
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Centered login form with rounded corners */
+.form_container {
+  position: absolute;
+  max-width: 320px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header container for heading in the center */
+.form_header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* "Login" heading */
+.form_header a {
+  font-size: 22px;
+  color: #782F40;
+}
+
+/* Exit icon in top right */
+.form_close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  color: #0b0217;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/* Optional: hover effect on the close icon */
+.form_close:hover {
+  opacity: 1;
+}
+
+/* Input containers */
+.input_box {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input_box input {
+  width: 100%;
+  padding: 12px 40px; /* extra padding for icons */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Icons inside input fields */
+.input_icon,
+.password,
+.pw_hide {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 18px;
+}
+
+/* Left-side icon (envelope, lock) */
+.input_icon {
+  left: 12px;
+}
+
+/* Right-side password visibility icon */
+.pw_hide {
+  right: 12px;
+  cursor: pointer;
+}
+
+/* Submit button styling */
+.btn_submit {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #CEB888;
+  color: #782F40;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn_submit:hover {
+  background-color: #782F40;
+  color:#CEB888
+}

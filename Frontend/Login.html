@@ -1,46 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>CraveRank Login</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CraveRank</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicrons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <style>
+      /* Remove bullet points and default padding/margin from the nav list */
+      .nav_items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <div class="nav_logo_container">
+          <a href="#" class="nav_logo">CraveRank</a>
+          <span class="material-icons">restaurant_menu</span>
+        </div>        
+        <ul class="nav_items">
+          <li class="nav_item"><a href="example.html" class="nav_link">Home</a></li>
+          <li class="nav_item"><a href="#" class="nav_link">Categories</a></li>
+          <li class="nav_item"><a href="#" class="nav_link">Reviews</a></li>
+        </ul>
+        <button class="button">Login</button>
+        <!-- <button class="button">Sign Up</button> -->
+      </nav>
+    </header>
 
+    <section class="home">
+      <div class="form_container">
+        <!-- Header with heading in the center and small exit icon in the top right -->
+        <div class="form_header">
+          <h1>Login to CraveRank</h1>
+          <i class="uil uil-times form_close"></i>
+        </div>
 
-    </head>
-
-    <body>
-
-        <center>
-            <h3> Login Here</h3>
-            <form action=" " method="post">
-                <table>
-                    <tr>
-                        <td>Username:</td>
-                        <td>
-                            <input type="text" name="user" placeholder="Enter Username">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Password:</td>
-                        <td>
-                            <input type="Password" name="user_pass" placeholder="Enter Password">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <input type="submit" name="submit" value="Login">
-                        </td>
-
-                        <td>
-                            <input type="submit" name="submit" value="Sign Up">
-                        </td>
-                    </tr>
-                </table>
-
-            </form>
-
-        </center>
-
-    </body>
-    
+        <div class="form login_form">
+          <form action="#">
+            <div class="input_box">
+              <!-- Optional icon for email/username -->
+              <i class="uil uil-envelope input_icon"></i>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              />
+            </div>
+            <div class="input_box">
+              <i class="uil uil-lock input_icon"></i>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <!-- Example submit button -->
+            <button type="submit" class="button btn_submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
