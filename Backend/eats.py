@@ -1,126 +1,135 @@
 from flask import Flask, request, jsonify
-import requests
-import os
-from dotenv import load_dotenv
-import mysql.connector
+import json
+from flask_cors import CORS
+from pymongo import MongoClient
+from bson import ObjectId  # Import ObjectId from bson
 
-load_dotenv()
-YELP_API_KEY = os.getenv("YELP_API_KEY")
-YELP_API_URL = os.getenv("YELP_API_URL")
-HEADERS = {
-    "Authorization": f"Bearer {YELP_API_KEY}"
-}
+app = Flask(__name__)
 
+# Database connection function (MongoDB)
 def database_connection():
-    connect = mysql.connector.connect(
-        host='sql5.freesqldatabase.com',
-        user='sql5757119',
-        password='1JclsHjhAz',
-        database='sql5757119',
-        connection_timeout=300
-    )
-    return connect
+    # Connect to MongoDB Atlas
+    client = MongoClient("mongodb+srv://jaynaspikes53:STOHwWSzeeZjgVMk@craverank-1.dq9ic.mongodb.net/CraveRank_Restaurants?retryWrites=true&w=majority")
+    db = client.get_database("CraveRank_Restaurants")  # Connect to CraveRank_Restaurants database
+    return db
 
-app=Flask(__name__)
- 
-#Function to get resutrants
-def get_restaurants(location, categories=None, min_rating = 0, limit = 10, radius = 5000, price = None):
-    params={
-        "term":"restaurants",
-        "location":location,
-        "categories": categories,
-        "limit":limit,
-        "radius":radius,
-        "sort_by":"rating", 
-    }
-    if price:
-        params["price"] = price
-    response = requests.get(YELP_API_URL, headers=HEADERS, params=params)
+#Test route to confirm Flask is working
+@app.route("/test", methods=["GET"])
+def test():
+    return "Flask is working!"
 
-    if response.status_code == 200:
-        businesses = response.json()['businesses']
-        filtered_businesses = [business for business in businesses if business['rating'] >= min_rating]
-        insert_yelp_data(filtered_businesses)
-        return filtered_businesses
+# Function to load JSON data from a file (line by line)
+def load_json_data(file_path):
+    with open(file_path, 'r') as file:
+        data = []
+        for line in file:
+            try:
+                data.append(json.loads(line))  # Parse each line as a JSON object
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
+        return data
+
+# Test loading JSON data to confirm that it loads correctly
+@app.route("/load_test", methods=["GET"])
+def load_test():
+    file_path = '/Users/jaynaspikes/Downloads/Yelp JSON/yelp_academic_dataset_business.json'
+    try:
+        data = load_json_data(file_path)
+        # Show the first 5 records of the data for testing
+        return jsonify(data[:5])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Test query parameters to make sure Flask is receiving them correctly
+@app.route("/query_test", methods=["GET"])
+def query_test():
+    location = request.args.get("location", "Unknown Location")
+    category = request.args.get("category", "Unknown Category")
+    min_rating = request.args.get("min_rating", "0", type=float)
+    return jsonify({
+        "location": location,
+        "category": category,
+        "min_rating": min_rating
+    })
+
+#Function to convert ObjectId to string
+def mongo_to_dict(mongo_obj):
+    """
+    Recursively convert MongoDB document's ObjectId to string.
+    This ensures all ObjectId fields are converted to string before returning them as JSON.
+    """
+    if isinstance(mongo_obj, dict):
+        return {key: mongo_to_dict(value) for key, value in mongo_obj.items()}
+    elif isinstance(mongo_obj, list):
+        return [mongo_to_dict(item) for item in mongo_obj]
+    elif isinstance(mongo_obj, ObjectId):
+        return str(mongo_obj)
     else:
-        return{"error": f"Error {response.status_code} from Yelp API"} 
+        return mongo_obj
 
-
-def insert_yelp_data(businesses):
-    connect = database_connection()
-    cursor = connect.cursor()
-
-    for business in businesses:
-        cursor.execute('SELECT restaurant_id FROM Restaurants WHERE yelp_id =%s', (business['id'],))
-        existing_restaurant = cursor.fetchone()
-
-        if not existing_restaurant:
-            cursor.execute('''
-                INSERT INTO Restaurants (name, address, city, state, zip_code, latitude, longitude, rating, price_range, phone, website, yelp_id)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            ''', (
-                business['name'],
-                business['location'].get('address', ''),
-                business['location'].get('city', ''),
-                business['location'].get('state', ''),
-                business['location'].get('zip_code', ''),
-                business['coordinates'].get('latitude', None),
-                business['coordinates'].get('longitude', None),
-                business['rating'],
-                business.get('price', None),
-                business.get('phone', ''),
-                business.get('url', ''),
-                business['id']
-            ))
-            restaurant_id = cursor.lastrowid
-
-            #Insert categories
-            for category in business['categories']:
-                cursor.execute('SELECT category_id FROM Categories WHERE name =%s' ,(category['title'],))
-                category_id = cursor.fetchone()
-
-                if not category_id:
-                    (cursor.execute(''' INSERT INTO Categories (name) VALUES (%s) ''', (category['title'],)))
-                    category_id = cursor.lastrowid
-                else:
-                    category_id = category_id[0]
-                cursor.execute(''' INSERT INTO RestaurantCategories (restaurant_id, category_id) VALUES (%s, %s) ''',( restaurant_id, category_id))
-
-            
-            #Insert reviews
-            if 'reviews' in business:
-                for review in business['review']:
-                    cursor.execute('SELECT user_id FROM Users WHERE username = %s', (review['user']['name'],))
-                    user_id = cursor.fetchone()
-
-                    if not user_id:
-                        cursor.execute(''' INSERT INTO Users (username) VALUES (%s)''', (review['user']['name'],))
-                        user_id[0]
-                        cursor.execute('''INSERT INTO Reviews (user_id, restaurant_id, review_content, rating, created_at, updated_at) VALUES (%s, %s, %s, %s, NOW(), NOW()) ''',
-                                   (user_id, restaurant_id,review['text'], review['rating']))
-
-            connect.commit()
-    connect.close()
-#Handle Resurant Search
 @app.route("/search_restaurants", methods=["GET"])
 def search_restaurants():
     location = request.args.get("location")
     category = request.args.get("category")
     min_rating = request.args.get("min_rating", 0, type=float)
-    limit = request.args.get("limit", 10, type=int)
-    radius = request.args.get("radius", 5000, type=int)
-    price = request.args.get("price")
 
-    if not location:
-        return jsonify({"error": "Location is required"}), 400
-    
-    result = get_restaurants(location, category, min_rating, limit, radius, price)
+    try:
+        # Debugging: Log the query parameters
+        print(f"Location: {location}, Category: {category}, Min Rating: {min_rating}")
 
-    if "error" in result:
-        return jsonify(result), 500
-    else:
-        return jsonify(result)
-    
+        # Connect to MongoDB
+        db = database_connection()
+        collection = db.Restaurants  # Collection name in MongoDB
+
+        # Build MongoDB query dynamically
+        query = {"categories": {"$regex": "Restaurants", "$options": "i"}}  # Match 'Restaurants' in categories
+
+        # Debugging: Check if location is present and adjust query accordingly
+        if location:
+            print(f"Searching for location (state) = {location}")
+            query["state"] = {"$regex": location, "$options": "i"}  # Case-insensitive search for state (location)
+        if category:
+            print(f"Searching for category = {category}")
+            query["categories"] = {"$regex": category, "$options": "i"}  # Case-insensitive search for category
+        if min_rating:
+            print(f"Searching for minimum rating = {min_rating}")
+            query["stars"] = {"$gte": min_rating}  # Filter by minimum rating
+
+        # Perform MongoDB query
+        cursor = collection.find(query)  # No limit 
+
+        # Convert the cursor to a list of businesses
+        businesses = list(cursor)
+
+        # Debugging: Log the number of businesses found and show the first few
+        print(f"Found {len(businesses)} businesses.")
+        if businesses:
+            print("First few results:")
+            for business in businesses[:5]:  # Print the first 5 businesses for inspection
+                print(business)
+        else:
+            print("No businesses found.")
+
+        # Convert ObjectId fields to string before returning
+        businesses = mongo_to_dict(businesses)
+
+        if not businesses:
+            return jsonify({"error": "No businesses found."}), 404
+
+        # Return filtered businesses as JSON
+        return jsonify(businesses)
+
+    except Exception as e:
+        # If there's any exception, log it and return a 500 error
+        print(f"Error occurred: {e}")
+        return jsonify({"error": "An error occurred while processing the request."}), 500
+
+
+
+@app.route('/')
+def home():
+    return "Welcome to CraveRank"
+
 if __name__ == "__main__":
     app.run(debug=True)
 
