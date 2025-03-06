@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CraveRank</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicrons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <style>
+      .nav_items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+        <nav class="nav">
+          <div class="nav_logo_container">
+            <a href="#" class="nav_logo">CraveRank</a>
+            <span class="material-icons">restaurant_menu</span>
+          </div>        
+          <ul class="nav_items">
+            <li class="nav_item"><a href="navigation.html" class="nav_link">Home</a></li>
+            <li class="nav_item"><a href="#" class="nav_link">Categories</a></li>
+            <li class="nav_item"><a href="#" class="nav_link">Reviews</a></li>
+          </ul>
+          <!-- <button class="button" onclick="window.location.href='login.html'">Login</button> -->
+          <!-- <button class="button">Sign Up</button> -->
+        </nav>
+      </header>
+
+    <section class="home">
+      <div class="form_container">
+        <div class="form_header">
+          <h1>Sign Up for CraveRank</h1>
+          <i class="uil uil-times form_close"></i>
+        </div>
+
+        <div class="form signup_form">
+          <form action="#">
+            <div class="input_box">
+              <i class="uil uil-user input_icon"></i>
+              <input type="text" name="username" placeholder="Username" required />
+            </div>
+            <div class="input_box">
+              <i class="uil uil-lock input_icon"></i>
+              <input type="password" name="password" placeholder="Create Password" required />
+            </div>
+            <div class="input_box">
+              <i class="uil uil-lock input_icon"></i>
+              <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+            </div>
+            <button type="submit" class="button btn_submit">Sign Up</button>
+
+            <!-- "Already have an account? Login" link in purple -->
+            <div class="redirect_text">
+              Already have an account?
+              <a href="login.html">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
