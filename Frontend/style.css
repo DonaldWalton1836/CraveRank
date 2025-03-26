@@ -149,6 +149,7 @@ a {
   color:#CEB888
 }
 
+
 button {
   padding: 6px 24px;
   border: 2px solid #CEB888;
@@ -254,6 +255,11 @@ button {
 }
 
 .btn_submit:hover {
+  background-color: #782F40;
+  color:#CEB888
+}
+
+.login_button:hover{
   background-color: #782F40;
   color:#CEB888
 }
