@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import psycopg2
 from psycopg2.extras import Json
@@ -235,10 +236,70 @@ def home():
 if __name__ == "__main__":
     app.run(debug=True)
 
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
 
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    conn = database_connection()
+    if conn is None:
+        return jsonify({"error": "Database connection failed"}), 500
+
+    cursor = conn.cursor()
+
+    # This will check if username already exists
+    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    if cursor.fetchone():
+        return jsonify({"error": "Username already exists"}), 409
+
+    # This will hash the password and store the information within the database.
+    hashed_password = generate_password_hash(password)
+
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, password) VALUES (%s, %s)",
+            (username, hashed_password)
+        )
+        conn.commit()
+        return jsonify({"message": "User registered successfully"}), 201
+    except Exception as e:
+        print(f"Error during signup: {e}")
+        return jsonify({"error": "Error registering user"}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    conn = database_connection()
+    if conn is None:
+        return jsonify({"error": "Database connection failed"}), 500
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
+    result = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if result is None:
+        return jsonify({"error": "Invalid username or password"}), 401
+
+    stored_hashed_pw = result[0]
+    if check_password_hash(stored_hashed_pw, password):
+        return jsonify({"message": "Login successful"}), 200
+    else:
+        return jsonify({"error": "Invalid username or password"}), 401
 
 #YELP_API_URL = 'https://api.yelp.com/v3/businesses/search'
-
-
-
-
