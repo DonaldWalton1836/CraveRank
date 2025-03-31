@@ -56,7 +56,7 @@ a {
 }
 
 .login_button {
-  margin-left: auto;
+  /* margin-left: 25px; */
 }
 
 .nav_logo,
@@ -118,16 +118,64 @@ a {
 
 
 /* Media query for smaller screens */
+/* Media query for smaller screens (max-width: 600px) */
 @media (max-width: 600px) {
   .input-wrap {
-      width: 90%; /* Take up more space on small screens */
+    width: 100%; /* Full width for smaller screens */
+    padding: 10px; /* Add more padding for better spacing */
   }
 
   .input-wrap input {
-      font-size: 14px;
-      padding: 8px;
+    font-size: 14px;
+    padding: 8px;
   }
 
+  .form_container {
+    max-width: 280px; /* Reduce form width for smaller screens */
+    padding: 20px; /* Adjust padding */
+  }
+
+  .btn_submit {
+    font-size: 14px; /* Smaller button text */
+    padding: 8px; /* Adjust button padding */
+  }
+}
+
+/* Media query for medium screens (max-width: 900px) */
+@media (max-width: 900px) {
+  .nav {
+    flex-direction: column; /* Stack navigation items */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
+  }
+
+  .nav_logo_container {
+    margin-bottom: 10px; /* Add spacing between logo and links */
+  }
+
+  .input-wrap {
+    max-width: 400px; /* Adjust max width for medium screens */
+  }
+
+  .form_container {
+    max-width: 300px; /* Adjust form width */
+  }
+}
+
+/* Media query for large screens (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .form_container {
+    max-width: 400px; /* Increase form width for larger screens */
+  }
+
+  .input-wrap {
+    max-width: 600px; /* Wider input field for large screens */
+  }
+
+  .btn_submit {
+    font-size: 18px; /* Larger button text */
+    padding: 12px; /* Adjust button padding */
+  }
 }
 
 
