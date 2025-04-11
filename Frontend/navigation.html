@@ -20,20 +20,107 @@
     </style>
   </head>
   <body>
+    <!-- Fixed Header -->
     <header class="header">
       <nav class="nav">
         <div class="nav_logo_container">
           <a href="#" class="nav_logo">CraveRank</a>
           <span class="material-icons">restaurant_menu</span>
-        </div>        
+        </div>
         <div class="input-wrap input-1">
-          <input type="text" name="cuisine" placeholder="Search" />          <button>
-              <i class="material-icons">search</i>
+          <input type="text" name="cuisine" placeholder="Search" />
+          <button>
+            <i class="material-icons">search</i>
           </button>
         </div>
         <button class="button login_button" onclick="window.location.href='login.html'">Login</button>
-        <!-- <button class="button">Sign Up</button> -->
       </nav>
     </header>
-</body>
+
+    <!-- Main content below the header -->
+    <main class="main-content">
+      <!-- Scroll Container: wraps arrow buttons with the horizontally scrollable box area -->
+      <div class="scroll-container">
+        <!-- Left arrow button -->
+        <button class="scroll-button left">
+          <i class="material-icons">chevron_left</i>
+        </button>
+
+        <!-- Horizontal scrollable container for placeholder boxes -->
+        <div class="placeholder-container">
+          <!-- 11 placeholder items -->
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+          <div class="placeholder-item">
+            <div class="placeholder-box"></div>
+            <p class="placeholder-caption">Placeholder</p>
+          </div>
+        </div>
+
+        <!-- Right arrow button -->
+        <button class="scroll-button right">
+          <i class="material-icons">chevron_right</i>
+        </button>
+      </div>
+    </main>
+
+    <!-- JavaScript to enable horizontal scrolling on arrow click -->
+    <script>
+      // Select the horizontally scrollable container and arrow buttons
+      const scrollContainer = document.querySelector('.placeholder-container');
+      const leftButton = document.querySelector('.scroll-button.left');
+      const rightButton = document.querySelector('.scroll-button.right');
+      
+      // Set the number of pixels to scroll per click
+      const scrollAmount = 200;
+
+      // Scroll left when the left arrow is clicked
+      leftButton.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      // Scroll right when the right arrow is clicked
+      rightButton.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    </script>
+  </body>
 </html>
