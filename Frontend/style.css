@@ -311,3 +311,215 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* Make sure the header is fixed at the top */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  width: 100%;
+  background-color: #fff; /* Add a background so content doesn't show through */
+  z-index: 999;
+  padding: 20px;
+  /* existing styling as before... */
+}
+
+/* Push the main content below the header */
+.main-content {
+  margin-top: 80px; /* or 100px if you want more spacing */
+  /* You can also use padding-top if preferred: padding-top: 80px; */
+}
+
+/* Placeholder boxes row container */
+.placeholder-container {
+  display: flex;
+  flex-wrap: wrap;         /* Let boxes wrap on small screens */
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px;               /* Space between each box */
+  /* Remove large margin-top here, since .main-content handles it */
+  padding: 0 20px;
+}
+
+/* Each placeholder item (box + caption) */
+.placeholder-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The box itself (60x60, white background, black border, rounded corners) */
+.placeholder-box {
+  width: 60px;
+  height: 60px;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 8px;
+}
+
+/* Caption below each box */
+.placeholder-caption {
+  margin-top: 8px;
+  font-size: 14px;
+  text-align: center;
+  color: #000000;
+}
+
+/* Container for horizontal scrolling with arrow buttons */
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Make the placeholder container scroll horizontally */
+.placeholder-container {
+  display: flex;
+  gap: 20px;             /* Space between boxes (keeps your 20px gap) */
+  overflow-x: auto;      /* Enable horizontal scrolling */
+  scroll-behavior: smooth;
+  padding: 10px;
+  flex: 1;               /* Allow it to grow to available space */
+}
+
+/* Optional: Style the scrollbar (WebKit browsers) */
+.placeholder-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.placeholder-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.placeholder-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.placeholder-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Style for the arrow buttons */
+.scroll-button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-button.left {
+  margin-right: 5px;
+}
+
+.scroll-button.right {
+  margin-left: 5px;
+}
+
+/* Container for horizontal scrolling with arrow buttons */
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Make the placeholder container scroll horizontally */
+.placeholder-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+  flex: 1;
+}
+
+/* Optional: Style the scrollbar for WebKit browsers */
+.placeholder-container::-webkit-scrollbar {
+  height: 8px;
+}
+.placeholder-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.placeholder-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.placeholder-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Style for the arrow buttons */
+.scroll-button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}
+.scroll-button.left {
+  margin-right: 5px;
+}
+.scroll-button.right {
+  margin-left: 5px;
+}
+
+/* Container for horizontal scrolling with arrow buttons */
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Set the placeholder container as a horizontal flex container with overflow */
+.placeholder-container {
+  display: flex;
+  gap: 20px;               /* Maintains spacing between boxes */
+  overflow-x: auto;        /* Enables horizontal scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+  padding: 10px;
+  flex: 1;
+}
+
+/* Optional: style the horizontal scrollbar for WebKit browsers */
+.placeholder-container::-webkit-scrollbar {
+  height: 8px;
+}
+.placeholder-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.placeholder-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.placeholder-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Style for the arrow buttons */
+.scroll-button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-button.left {
+  margin-right: 5px;
+}
+
+.scroll-button.right {
+  margin-left: 5px;
+}
