@@ -523,3 +523,83 @@ button {
 .scroll-button.right {
   margin-left: 5px;
 }
+
+/* STATES */
+/* Parent grid container */
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
+  gap: clamp(16px, 5vw, 70px); /* space between items */
+  justify-content: center;
+  padding-left: clamp(16px, 5vw, 60px);
+  padding-right: clamp(16px, 5vw, 60px);
+  padding-bottom: 100px;
+  place-items: start center; /* centers items horizontally */
+}
+
+/* Each state item */
+.state-container {
+  width: 100%;
+}
+
+/* Link block */
+.state-link {
+  text-decoration: none;
+  display: block;
+}
+
+/* Image wrapper */
+.state-image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Images */
+.state-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.state-image.hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.state-image-wrapper:hover .hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.state-image-wrapper:hover .default {
+  opacity: 0;
+}
+
+/* Label text */
+.state-label {
+  text-align: center;
+  margin-top: 8px;
+  color: #000000;
+}
+
+.select-text {
+  text-align: left;
+  font-size: clamp(12px, 4vw, 25px);
+  margin-top: 8px;
+  color: #000000;
+  padding-bottom: 20px;
+  padding-left: clamp(16px, 5vw, 60px);
+}
+
+.state-text {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 8px;
+  color: #000000;
+  padding-top: 30px;
+}
